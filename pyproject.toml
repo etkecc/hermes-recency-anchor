@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hermes-recency-anchor"
+version = "1.0.0"
+description = "Restate your instruction at the end of every user turn, so message zero stops losing to message N."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "LGPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [{ name = "etke.cc" }]
+keywords = ["hermes", "hermes-agent", "hermes-agent-plugin", "prompting"]
+classifiers = ["Programming Language :: Python :: 3"]
+
+[project.urls]
+Homepage = "https://github.com/etkecc/hermes-recency-anchor"
+
+# A `module:register` value hands the loader a function, and getattr on that finds no register().
+[project.entry-points."hermes_agent.plugins"]
+recency-anchor = "hermes_recency_anchor"

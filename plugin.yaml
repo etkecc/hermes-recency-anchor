@@ -1,0 +1,7 @@
+manifest_version: 1
+name: recency-anchor
+version: "1.0.0"
+description: "Your system prompt is message zero and the user's question is message N. On models that weight recency hard, that is not a fair fight, and the instruction you care about most quietly loses to whatever was just asked. This plugin restates it at the end of every user turn instead. Append-only, API copy only, prompt-cache prefix untouched."
+author: "etke.cc"
+provides_hooks:
+  - pre_llm_call
