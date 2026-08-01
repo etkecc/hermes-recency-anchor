@@ -66,12 +66,18 @@ check("entries as a list", entry_from({"plugins": {"entries": [PID]}}), {})
 check("entry as a scalar", entry_from({"plugins": {"entries": {PID: "nope"}}}), {})
 check("empty config", entry_from({}), {})
 
-# The hook and /anchor must never disagree, so they have to keep sharing one decision.
-for _entry_shape in ({}, {"channels": "cli"}, {"channels": ["matrix"]}, {"exclude_channels": "cli"},
-                     {"channels": ["cli"], "exclude_channels": ["cli"]}, {"channels": True}):
+# The hook and /anchor must never disagree, so this drives both real entry points rather than the
+# helper they share, which would compare a function against itself and pass through any regression.
+_real_entry, _real_env = plugin._entry, plugin._session_env
+for _shape in ({}, {"channels": "cli"}, {"channels": ["matrix"]}, {"exclude_channels": "cli"},
+               {"channels": ["cli"], "exclude_channels": ["cli"]}, {"channels": True}):
     for _ch in ("cli", "matrix"):
-        check(f"hook and /anchor agree on {_entry_shape} at {_ch}",
-              allowed(_entry_shape, _ch), plugin._verdict(_entry_shape, _ch)[0] == "yes")
+        plugin._entry = lambda _s=dict(_shape, text="anchor"): _s
+        plugin._session_env = lambda name, _c=_ch: _c if name == "HERMES_SESSION_SOURCE" else ""
+        check(f"hook and /anchor agree on {_shape} at {_ch}",
+              plugin._on_pre_llm_call(platform=_ch) is not None,
+              "Allowed    : yes" in plugin._handle_anchor(""))
+plugin._entry, plugin._session_env = _real_entry, _real_env
 
 # Two lanes, two version strings, and a published plugin already shipped users a copy that had drifted.
 _manifest = re.search(r'^version:\s*"?([^"\s]+)', (_HERE / "plugin.yaml").read_text(), re.M)
