@@ -71,3 +71,7 @@ Both lanes register as `recency-anchor` and read the same config block.
 ## Licence
 
 LGPL-3.0. That is etke.cc house policy, and yes, we are aware of what the rest of the shelf is licensed as.
+
+---
+
+Tested against Hermes Agent v0.20.0 (2026-08-04).
