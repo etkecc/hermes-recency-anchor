@@ -26,6 +26,13 @@ Edit that text and it lands on the next message. No restart, no reload, no cerem
 
 Run `/anchor` in any chat and it tells you the channel it resolved, whether the anchor fired, and which rule decided. That command exists because this plugin's only failure mode is nothing happening, and "nothing happened" is the worst bug report ever filed.
 
+## Update
+
+```
+hermes plugins remove etkecc/hermes-recency-anchor
+hermes plugins install etkecc/hermes-recency-anchor --enable
+```
+
 ## The drift it fixes
 
 You notice it as drift, and it is maddening precisely because nothing looks broken. No refusal, no error, no warning in the log. Your instruction is sitting right there in the context, being quietly outvoted by "review this Go function". The model answers the question well and sounds like every other assistant on earth while doing it.
@@ -57,14 +64,6 @@ Both keys match the channel a turn arrived on, which is the session source when 
 A model that refuses. This moves where your instruction sits. Willingness gets decided somewhere this plugin cannot reach, so aim it at a hard guardrail and all you get is a refusal that arrives more recently.
 
 A vague instruction, either. More weight on your words is good news only when the words are good.
-
-## Installing without git
-
-The git lane above is the front door: you get the post-install panel, in-place `hermes plugins update`, and git on PATH is the only thing it wants. For declarative setups, CI, or a box that has never met the internet, the same plugin ships as a wheel with a `hermes_agent.plugins` entry point:
-
-```
-pip install hermes-recency-anchor
-```
 
 Both lanes register as `recency-anchor` and read the same config block.
 
