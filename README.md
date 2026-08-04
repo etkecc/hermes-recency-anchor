@@ -29,8 +29,7 @@ Run `/anchor` in any chat and it tells you the channel it resolved, whether the 
 ## Update
 
 ```
-hermes plugins remove recency-anchor
-hermes plugins install etkecc/hermes-recency-anchor --enable
+hermes plugins update recency-anchor
 ```
 
 ## The drift it fixes
