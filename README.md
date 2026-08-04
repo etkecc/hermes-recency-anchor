@@ -29,7 +29,7 @@ Run `/anchor` in any chat and it tells you the channel it resolved, whether the 
 ## Update
 
 ```
-hermes plugins remove etkecc/hermes-recency-anchor
+hermes plugins remove recency-anchor
 hermes plugins install etkecc/hermes-recency-anchor --enable
 ```
 
